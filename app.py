@@ -7,7 +7,7 @@ from ElevateAIPythonSDK import ElevateAI
 from rich.live import Live
 from rich.table import Table
 
-
+# Update the interaction status for each uploaded file
 def update_results(upload_results, config):
     updated_results = []
     for row in upload_results:
@@ -17,7 +17,7 @@ def update_results(upload_results, config):
         updated_results.append(new_row)
     return updated_results
 
-
+# Generate the table to display the interaction status
 def generate_table(results) -> Table:
     table = Table()
     table.add_column("Filename")
@@ -29,7 +29,7 @@ def generate_table(results) -> Table:
 
     return table
 
-
+# Process command-line arguments
 def process_args(args):
     parser = argparse.ArgumentParser(description='Upload audio files to ElevateAI.')
     parser.add_argument('-f', '--files', nargs='+', help='Audio files to upload')
@@ -42,7 +42,7 @@ def process_args(args):
 
     return arguments.files, arguments.config
 
-
+# Check if the config file and audio files exist and load the config
 def check_files(config_file, audio_files):
     if not os.path.isfile(config_file):
         print(f"Config file '{config_file}' not found. A config.json file is required.")
@@ -57,7 +57,7 @@ def check_files(config_file, audio_files):
 
     return config
 
-
+# Upload each audio file and store the interaction status
 def upload_files(audio_files, config):
     upload_results = []
     for file in audio_files:
@@ -70,23 +70,7 @@ def upload_files(audio_files, config):
 
     return upload_results
 
-
-def main(args):
-    try:
-        audio_files, config_file = process_args(args)
-        config = check_files(config_file, audio_files)
-        upload_results = upload_files(audio_files, config)
-
-        with Live(generate_table(upload_results), refresh_per_second=4) as live:
-            while True:
-                time.sleep(15)
-                upload_results = update_results(upload_results, config)
-                live.update(generate_table(upload_results))
-    except KeyboardInterrupt:
-        print("\nGoodbye!")
-        sys.exit(0)
-
-
+# Upload a single audio file and return the declare response
 def upload_file(file_path, config):
     token = config['api_token']
     language_tag = "en-us"
@@ -102,6 +86,20 @@ def upload_file(file_path, config):
     ElevateAI.UploadInteraction(interaction_id, token, file_path, file_name)
     return declare_response
 
+def main(args):
+    try:
+        audio_files, config_file = process_args(args)
+        config = check_files(config_file, audio_files)
+        upload_results = upload_files(audio_files, config)
+
+        with Live(generate_table(upload_results), refresh_per_second=4) as live:
+            while True:
+                time.sleep(15)
+                upload_results = update_results(upload_results, config)
+                live.update(generate_table(upload_results))
+    except KeyboardInterrupt:
+        print("\nGoodbye!")
+        sys.exit(0)
 
 if __name__ == "__main__":
     main(sys.argv[1:])
