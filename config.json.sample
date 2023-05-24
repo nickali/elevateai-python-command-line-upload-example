@@ -1,5 +1,5 @@
 {
-  "api_token": "get a token httsp://www.elevateai.com"
+  "api_token": "get a token httsp://www.elevateai.com",
   "api_url" : "https://api.elevateai.com/v1"
 }
 
