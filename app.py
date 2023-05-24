@@ -33,14 +33,23 @@ def generate_table(results) -> Table:
 def process_args(args):
     parser = argparse.ArgumentParser(description='Upload audio files to ElevateAI.')
     parser.add_argument('-f', '--files', nargs='+', help='Audio files to upload')
+    parser.add_argument('-d', '--directory', help='Directory containing audio files to upload')
     parser.add_argument('-c', '--config', default='config.json', help='Path to config.json file')
     arguments = parser.parse_args(args)
-
-    if arguments.files is None:
+    if arguments.files is None and arguments.directory is None:
         parser.print_help()
         sys.exit(0)
+    
+    audio_files = []
+    if arguments.files:
+        audio_files.extend(arguments.files)
+    if arguments.directory:
+        for root, dirs, files in os.walk(arguments.directory):
+            for file in files:
+                audio_files.append(os.path.join(root, file))
+    
+    return audio_files, arguments.config
 
-    return arguments.files, arguments.config
 
 # Check if the config file and audio files exist and load the config
 def check_files(config_file, audio_files):

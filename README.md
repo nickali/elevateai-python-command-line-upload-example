@@ -24,8 +24,17 @@ cd elevate-python-command-line-upload-example
 Copy config.json.sample to config.json and replace the api_key. If you don't have an API key, visit the [ElevateAI website](https://www.elevateai.com).
 
 ### Run the command
+
+To upload individual files:
+
 ```sh
 python app.py -f sample.wav sample2.wav
+```
+
+To upload all files in a directory
+
+```sh
+python app.py -d input_dir
 ```
 
 ### Verify status
