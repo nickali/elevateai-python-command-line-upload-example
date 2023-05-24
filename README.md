@@ -12,16 +12,11 @@ This app was made using the sample.wav and sample2.wav as the test audio files.
 
 Here are the steps to run the example.
 
-### Clone this repository
+### Clone this repository and submodule
 
 ```sh
-git clone https://github.com/nickali/elevateai-python-command-line-upload-example.git
-```
-
-### Checkout the ElevateAI submodule
-```sh
+git clone --recursive https://github.com/nickali/elevateai-python-command-line-upload-example.git
 cd elevate-python-command-line-upload-example
-git submodule add https://github.com/NICEElevateAI/ElevateAIPythonSDK ElevateAIPythonSDK
 ```
 
 ### Create config.json
