@@ -40,3 +40,20 @@ python app.py -d input_dir
 ### Verify status
 
 Visit the [dashboard](https://app.elevateai.com/Interactions) to check if the files have been uploaded and their current state.
+
+### Docker
+
+Build the image
+
+```sh
+docker build -t elevateai:latest .
+```
+
+Place the audio files in a directory. Pass in the audio files directory and config.json.
+
+```sh
+docker run --tty --rm --name elevateai \
+  --volume $PWD/config.json:/usr/elevateai/config.json \
+  --volume $PWD/input:/usr/elevateai/input elevateai:latest
+```
+
