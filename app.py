@@ -101,7 +101,7 @@ def main(args):
         config = check_files(config_file, audio_files)
         upload_results = upload_files(audio_files, config)
 
-        with Live(generate_table(upload_results), refresh_per_second=4) as live:
+        with Live(generate_table(upload_results), refresh_per_second=4,screen=True) as live:
             while True:
                 time.sleep(15)
                 upload_results = update_results(upload_results, config)
