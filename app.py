@@ -14,6 +14,7 @@ def update_results(upload_results, config):
         response = ElevateAI.GetInteractionStatus(row[1], config["api_token"])
         response_json = response.json()
         new_row = (row[0], row[1], response_json["status"])
+        print(row[0], row[1], response_json["status"])
         updated_results.append(new_row)
     return updated_results
 
@@ -25,6 +26,7 @@ def generate_table(results) -> Table:
     table.add_column("Status")
 
     for row in results:
+        print(row[0], row[1], row[2])
         table.add_row(row[0], row[1], row[2])
 
     return table
@@ -68,6 +70,9 @@ def check_files(config_file, audio_files):
 
 # Upload each audio file and store the interaction status
 def upload_files(audio_files, config):
+
+    print("\nUploading files...")
+
     upload_results = []
     for file in audio_files:
         response = upload_file(file, config)
