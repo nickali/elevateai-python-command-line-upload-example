@@ -15,7 +15,7 @@ mdurl==0.1.2
 msgpack==1.0.5
 multidict==6.0.4
 prompt-toolkit==3.0.38
-Pygments==2.14.0
+Pygments==2.15.0
 requests==2.28.2
 rich==13.3.3
 textual==0.17.3
